@@ -1,0 +1,31 @@
+---
+- name: Test vault-ids
+  hosts: localhost
+  vars_files: vars.yml
+  tasks:
+    - name: Run dev
+      debug:
+        var: env_dev_pass
+      tags:
+        - dev
+        - test
+        - qa
+        - prod
+    - name: Run test
+      debug:
+        var: env_test_pass
+      tags:
+        - test
+        - qa
+        - prod
+    - name: Run qa
+      debug:
+        var: env_qa_pass
+      tags:
+        - qa
+        - prod
+    - name: Run prod
+      debug:
+        var: env_prod_pass
+      tags:
+        - prod

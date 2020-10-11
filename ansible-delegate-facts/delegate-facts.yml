@@ -1,0 +1,30 @@
+- name: Test out delegated facts
+  hosts: localhost
+  vars:
+    remote_hosts:
+      # - Add the host from the inventory here
+  tasks:
+    - name: Add the remote_host to the inventory
+      add_host:
+        group: random_group
+        host: "{{ item }}"
+      loop: "{{ remote_hosts }}"
+
+    - name: Run the delegated gather
+      ansible.builtin.setup:
+      delegate_to: "{{ remote_hosts[0] }}"
+      delegate_facts: true
+
+    - name: Show the hostvars
+      debug:
+        var: hostvars[remote_hosts[0]]
+
+    - name: Show the default var
+      debug:
+        var: ansible_host
+
+    - name: Show the default var delegated
+      debug:
+        var: ansible_host
+      delegate_to: "{{ remote_hosts[0] }}"
+      delegate_facts: true

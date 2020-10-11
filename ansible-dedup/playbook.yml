@@ -1,0 +1,9 @@
+- name: Perform the test
+  hosts: localhost
+  check_mode: False
+  tasks:
+    - name: dedup the file
+      dedup:
+        dest: ./test_file
+        backup: True
+

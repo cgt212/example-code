@@ -1,0 +1,9 @@
+- name: test if in var
+  hosts: localhost
+  vars:
+    os_ver: "8"
+    int_name: "{{ 'eth0' if os_ver.startswith('7') else 'ens3' }}"
+  tasks:
+    - name: Show the valu
+      debug:
+        var: int_name
